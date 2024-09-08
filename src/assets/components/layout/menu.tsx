@@ -1,6 +1,35 @@
-import {Text, Box, Icon, IconProps,Link } from '@chakra-ui/react'
+import {Text, Box, Icon, IconProps,Link, BoxProps } from '@chakra-ui/react'
 import ButtonAuth from '../../elements/ButtonAuth'
-function Menu() {
+import { useNavigate  } from "react-router-dom";
+import { ReactNode } from 'react';
+
+
+interface menuProps extends BoxProps  {
+    Home:boolean
+    Search:boolean
+    Followers:boolean
+    Profile:boolean
+}
+
+ 
+
+
+
+export default function Menu( {Home, Search, Followers, Profile, ...props} : menuProps) {
+    function MenuList({ name, active, path, children }: { name: string; active: boolean; path: string ; children?: ReactNode }) {
+        const navigate = useNavigate();
+        if(active){
+            return <Box  display={"flex"} flexDirection={"row"} gap={"1rem"} alignItems={"center"}>
+            {children}
+            <Text  color={"white"} fontSize={"xl"} fontWeight={"semibold"} cursor={"pointer"} onClick={() => navigate(path)} >{name}</Text>
+            </Box>
+        }else {
+            return <Box  display={"flex"} flexDirection={"row"} gap={"1rem"} alignItems={"center"}>
+            {children}
+            <Text  color={"white"} fontSize={"xl"} fontWeight={"light"} cursor={"pointer"} onClick={() => navigate(path)} >{name}</Text>
+            </Box>  
+        }
+        }
 
     const HomeIcon = (props : IconProps) => (
         <Icon
@@ -30,40 +59,42 @@ function Menu() {
             {...props}
         ><path d="M256 48l0 16c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-16L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16l0-384c0-8.8-7.2-16-16-16l-64 0zM0 64C0 28.7 28.7 0 64 0L320 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM160 320l64 0c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16L96 416c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z"/>
         </Icon>)
+        
+const Navigate = useNavigate()    
+    return(
 
-    return(        
         <>
-    <Box color={"white"} borderRight={"1px"} borderColor={"grey"} mx={"2rem"} px={"2rem"} w={"100%"} flex={2}
+        
+    <Box {...props} color={"white"} borderRight={"1px"} borderColor={"grey"} px={"2rem"} w={"100vh"}
     display={"flex"} flexDirection={"column"} justifyContent={"space-around"} gap={"20rem"}>
     <Box display={"flex"} flexDirection={"column"} gap={"2rem"} my={"2rem"}>
-        <Text color={"#04A51E"} fontSize={"5xl"} fontWeight={"semibold"}>Circle</Text>
-            <Box display={"flex"} flexDirection={"row"} gap={"1rem"} alignItems={"center"}>
-            <HomeIcon boxSize={"30px"}/>
-            <Text color={"white"} fontSize={"xl"} fontWeight={"semibold"} >Home</Text>
-            </Box>
-            <Box display={"flex"} flexDirection={"row"} gap={"1rem"} alignItems={"center"}>
-            <UserIcon boxSize={"30px"}/>
-            <Text color={"white"} fontSize={"xl"} fontWeight={"light"} >Search</Text>
-            </Box>
-            <Box display={"flex"} flexDirection={"row"} gap={"1rem"} alignItems={"center"}>
+        <Text color={"#04A51E"} fontSize={"5xl"} fontWeight={"semibold"} cursor={"pointer"} onClick={() => Navigate("/") }>Circle</Text>
+            
+
+            <MenuList name="Home" active={Home} path="/">
+                <HomeIcon boxSize={"30px"}/>
+            </MenuList>
+            <MenuList name="Search" active={Search} path="/search">
+                <UserIcon boxSize={"30px"}/>
+            </MenuList>
+            <MenuList name="Followers" active={Followers} path="/followers">
             <LoveIcon boxSize={"30px"}/>
-            <Text color={"white"} fontSize={"xl"} fontWeight={"light"} >Follows</Text>
+            </MenuList>
+            <MenuList name="Profile" active={Profile} path="/profile">
+                <ProfileIcon boxSize={"30px"} />
+            </MenuList>
             </Box>
-            <Box display={"flex"} flexDirection={"row"} gap={"1rem"} alignItems={"center"}>
-            <ProfileIcon boxSize={"30px"} />
-            <Text color={"white"} fontSize={"xl"} fontWeight={"light"} >Profile</Text>
-            </Box>
+            <Box>
             <ButtonAuth>Create Post</ButtonAuth>
         </Box>
         <Box>
             <Link color={"white"} textAlign={"end"} textDecoration={"underline"} href="/login">Logout</Link>
         </Box>
-
     </Box>
+
     
         </>
     ) 
 }
 
-export default Menu
 

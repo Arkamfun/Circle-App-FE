@@ -3,6 +3,12 @@ import { Box, Container } from '@chakra-ui/react'
 import Home from './assets/pages/home'
 import Login from './assets/pages/login'
 import Register from './assets/pages/registerPage'
+import Status from './assets/pages/status'
+import Search from './assets/pages/searchPage'
+import Profile from './assets/pages/profilePage'
+import Followers from './assets/pages/followers'
+import ForgotPassword from './assets/pages/forgotPassword'
+import ResetPassword from './assets/pages/reset Password'
 function App() {
 
 
@@ -14,6 +20,13 @@ function App() {
               <Route path='/' element={<Home />}></Route>
               <Route path='/login' element={<Login />}></Route>
               <Route path='/register' element={<Register />}></Route>
+              <Route path='/forgotPassword' element={<ForgotPassword />}></Route>
+              <Route path='/resetpassword' element={<ResetPassword />}></Route>
+              
+              <Route path= '/status'element={<Status />}> </Route>
+              <Route path= '/search'element={<Search />}> </Route>
+              <Route path= '/profile'element={<Profile />}> </Route>
+              <Route path= '/followers'element={<Followers />}> </Route>
             </Routes>
           </Router>
       </Container>

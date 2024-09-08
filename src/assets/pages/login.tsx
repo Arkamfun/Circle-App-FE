@@ -17,8 +17,10 @@ function LoginPage() {
         <FormAuth title="Login to Circle" >
         <InputAuth type="text" placeholder='Enter Your Email/username'/>
         <InputAuth type="password" placeholder='Enter Your Password'/>
-        <Link color={"white"} textAlign={"end"} textDecoration={"underline"}  href="/register" 
+        <Link color={"white"} textAlign={"end"} textDecoration={"underline"}  onClick={() => {navigate("/register") }} 
         _hover={{color:"#04A51E"}}> Not Have Account ?</Link>
+        <Link color={"white"} textAlign={"end"} textDecoration={"underline"}  onClick={() => {navigate("/forgotpassword") }} 
+        _hover={{color:"#04A51E"}}> Forgot Passwword</Link>
         <ButtonAuth onClick={() => {goToHome() }}  > Login</ButtonAuth>
         </FormAuth>
     )

@@ -1,19 +1,10 @@
-import {
-    Box,
-    Container,
-    Text,
-    Image,
-    Textarea,
-    Icon,
-    IconProps,
-    Button
-} from '@chakra-ui/react'
-
-import { useNavigate } from 'react-router-dom'
-import Profile from '../components/layout/profile'
-import Menu from '../components/layout/menu'
-import Timeline from '../components/layout/timeline'
-function Home() {
+import Profile from "../components/layout/profile"
+import Menu from "../components/layout/menu"
+import Timeline from "../components/layout/timeline"
+import { Container, Text, Box, Image, Textarea, Button, Icon, IconProps,  } from "@chakra-ui/react"
+import { ArrowBackIcon } from '@chakra-ui/icons'
+import { useNavigate } from "react-router-dom"
+export default function Status() {
     const navigate = useNavigate()
     const FileImage = (props : IconProps) => (
         <Icon
@@ -37,28 +28,19 @@ function Home() {
         </Icon>)
 
     return (
+        
         <>
-
-            <Container minH={"100vh"} w={"100%"} bg={"#1D1D1D"} display={"flex"} flexDirection={"row"} justifyContent={"space-between"} gap={"8rem"} >
-                <Menu Followers={false} Home={true} Search={false} Profile={false}/>
-                <Timeline>
-                <Box w={"100%"} flex={5} display={"flex"} flexDirection={"column"} gap={"20px"} >
-                    <Text color={"white"}  fontSize={"2xl"} fontWeight={"semibold"}>Home</Text>
-                    <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} flexDirection={"row"} h={"100px"} borderBottom={"1px"} borderColor={"grey"}> 
-                        <Box>
-                        <Image src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                        objectFit={"cover"} h={"60px"} w={"60px"} borderRadius={"50%"}
-                        />
-                        </Box>
-                        <Box>
-                            <Textarea w={"30rem"} bg={"none"} border={"none"} color={"white"} placeholder={"What's on your mind?"} _active={{border:"none"}} borderBottom={"1px"} p={"1rem"} resize={"none"}/>
-                        </Box>
-                        <Box>
-                            <FileImage boxSize={"30px"}/>
-                        <Button color={"white"} backgroundColor={"#04A51E"} borderRadius={"3xl"} fontWeight={"semibold"} px={3} py={2}>Post</Button>
-                        </Box>
+        <Container minH={"100vh"} w={"100%"} bg={"#1D1D1D"} display={"flex"} flexDirection={"row"} justifyContent={"space-between"} >
+        <Menu Home={true} Profile={false} Followers={false} Search={false} />
+        <Timeline>
+        <Box w={"100%"} flex={5} display={"flex"} flexDirection={"column"} gap={"20px"} >
+                    <Box display={"flex"} gap={5} alignItems={"center"} mt={5}>
+                    <ArrowBackIcon color={"white"} fontSize={"2xl"} onClick={() => navigate("/")} cursor={"pointer"} _hover={{color:"grey"}} />
+                    <Text color={"white"}  fontSize={"2xl"} fontWeight={"semibold"}>Status</Text>
                     </Box>
+
                     <Box className='comments' display={"flex"} gap={5} borderBottom={"1px"} borderColor={"grey"} pb={5}>
+                        
                         <Box w={"60px"} h={"60px"} >
                             <Image src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                             w={"100%"} h={"100%"} borderRadius={"50%"} objectFit={"cover"}
@@ -81,10 +63,24 @@ function Home() {
                                 <LoveIcon fill={"red"} boxSize={"20px"} />
                                 <Text as={"p"} color={"grey"}>125</Text>
                                 <CommentIcon fill={"grey"} boxSize={"20px"}/>
-                                <Text as={"p"} color={"grey"}>125</Text>
+                                <Text as={"p"} color={"grey"}>125 Replies</Text>
                             </Box>
                         </Box>
 
+                    </Box>
+                    <Box className ='Post' display={"flex"} justifyContent={"space-between"} alignItems={"center"} flexDirection={"row"} h={"100px"} borderBottom={"1px"} borderColor={"grey"}> 
+                        <Box>
+                        <Image src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                        objectFit={"cover"} h={"60px"} w={"60px"} borderRadius={"50%"}
+                        />
+                        </Box>
+                        <Box>
+                            <Textarea w={"30rem"} bg={"none"} border={"none"} color={"white"} placeholder={"What's on your mind?"} _active={{border:"none"}} borderBottom={"1px"} p={"1rem"} resize={"none"}/>
+                        </Box>
+                        <Box>
+                            <FileImage boxSize={"30px"}/>
+                        <Button color={"white"} backgroundColor={"#04A51E"} borderRadius={"3xl"} fontWeight={"semibold"} px={3} py={2}>Post</Button>
+                        </Box>
                     </Box>
                     <Box className='comments' display={"flex"} gap={5} borderBottom={"1px"} borderColor={"grey"} pb={5}>
                         <Box w={"60px"} h={"60px"} >
@@ -93,7 +89,7 @@ function Home() {
                             >
                             </Image>
                         </Box>
-                        <Box className='Status' onClick={() => {navigate("/status")}} cursor={"pointer"} display={"flex"} flexDirection={"column"} w={"100%"} >
+                        <Box className='Status' cursor={"pointer"} display={"flex"} flexDirection={"column"} w={"100%"} >
                             <Box display={"flex"} gap={2}>
                                 <Text as={"p"} fontWeight={"bold"} color={"white"}>Indah Pra Karya </Text>
                                 <Text as={"p"} fontWeight={"light"} color={"grey"}>@indahpra</Text>
@@ -102,13 +98,11 @@ function Home() {
                             </Box>
                             <Box>
                                 <Text as={"p"} color={"white"}>
-                                Kalian pernah ga sih bet on saving? Jadi by calculation sebenernya kita ga survive sampe tanggal tertentu. Tapi entah gimana bisa aja gitu. Ada aja jalannya augmented reality real time puppet I made. You can try it now went below in the thread.
+                                    Masa sih
                                 </Text>
                             </Box>
                             <Box display={"flex"} my={3} alignItems={"center"} gap={2}>
                                 <LoveIcon fill={"grey"} boxSize={"20px"} />
-                                <Text as={"p"} color={"grey"}>125</Text>
-                                <CommentIcon fill={"grey"} boxSize={"20px"}/>
                                 <Text as={"p"} color={"grey"}>125</Text>
                             </Box>
                         </Box>
@@ -139,19 +133,16 @@ function Home() {
                             <Box display={"flex"} my={3} alignItems={"center"} gap={2}>
                                 <LoveIcon fill={"grey"} boxSize={"20px"} />
                                 <Text as={"p"} color={"grey"}>125</Text>
-                                <CommentIcon fill={"grey"} boxSize={"20px"}/>
-                                <Text as={"p"} color={"grey"}>125</Text>
                             </Box>
                         </Box>
 
                     </Box>
                 </Box>
-                </Timeline>
-                <Profile/>
-            </Container>
+        </Timeline>
+        <Profile/>
+
+
+        </Container>
         </>
     )
 }
-
-export default Home
-

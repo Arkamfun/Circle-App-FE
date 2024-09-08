@@ -25,7 +25,7 @@ function FormAuth(props:LoginFormAuthProps) {
       fontWeight={"semibold"}
       my={-4}
       >
-          circle
+          Circle
       </Text>
       <Text 
       textAlign={"start"} 
