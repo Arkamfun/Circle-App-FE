@@ -4,8 +4,14 @@ import Timeline from "../components/layout/timeline"
 import { Container, Text, Box, Image, Textarea, Button, Icon, IconProps,  } from "@chakra-ui/react"
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import { useNavigate } from "react-router-dom"
+import { usethreadDetail } from "../../features/home/hooks/useThreadDetail-hook"
+import { useHomePage } from "../../hooks/use-home-page"
+import { useParams } from "react-router-dom"
 export default function Status() {
     const navigate = useNavigate()
+    const {threadId} = useParams() 
+    const {threadDetail} =  usethreadDetail(Number(threadId))
+    console.log('ini dari FE',threadDetail)
     const FileImage = (props : IconProps) => (
         <Icon
             viewBox="0 0 576 512"
@@ -55,8 +61,11 @@ export default function Status() {
                                 <Text as={"p"} fontWeight={"light"} color={"grey"}> 4h</Text>
                             </Box>
                             <Box>
+                                <Text as={"p"} color={"white"} fontWeight={"bold"} fontSize={"xl"} textAlign={"center"}>
+                                {threadDetail?.title}
+                                </Text>
                                 <Text as={"p"} color={"white"}>
-                                Kalian pernah ga sih bet on saving? Jadi by calculation sebenernya kita ga survive sampe tanggal tertentu. Tapi entah gimana bisa aja gitu. Ada aja jalannya augmented reality real time puppet I made. You can try it now went below in the thread.
+                                {threadDetail?.content}
                                 </Text>
                             </Box>
                             <Box display={"flex"} my={3} alignItems={"center"} gap={2}>

@@ -1,109 +1,127 @@
-import {Box,Text, Image, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, Input, FormControl, FormLabel, FormErrorMessage, FormHelperText,Textarea  } from "@chakra-ui/react"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
-import React from "react"
+import { Avatar, Box, Button, FormControl, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure,FormLabel, Input } from "@chakra-ui/react"
+import React, { RefObject } from "react"
+
+import { useUser } from "../../../features/auth/hooks/hook-user"
 
 
-function ErrorMessage() {
-    const [input, setInput] = useState('Stella Audhina')
-  
-    const handleInputChange = (e) => setInput(e.target.value)
-  
-    const isError = input === ''
-    return (
-        <FormControl isInvalid={isError}>
-          <FormLabel color={"white"} >Name</FormLabel>
-          <Input placeholder='Enter your new Name' w={"100%"} bg={"transparent"} border={"1px"} borderColor={"white"} p={3} borderRadius={"xl"} color={"white"}  type='text' value={input} onChange={handleInputChange} />
-          {!isError ? (
-            <FormHelperText color={"white"}>
-            </FormHelperText>
-          ) : (
-            <FormErrorMessage color={"red"}>Name is required.</FormErrorMessage>
-          )}
-          <FormLabel color={"white"} >Username</FormLabel>
-          <Input placeholder='Enter your new Name' w={"100%"} bg={"transparent"} border={"1px"} borderColor={"white"} p={3} borderRadius={"xl"} color={"white"}  type='text' value={"@Stella"} onChange={handleInputChange} />
-          {!isError ? (
-            <FormHelperText color={"white"}>
-            </FormHelperText>
-          ) : (
-            <FormErrorMessage color={"red"}>Name is required.</FormErrorMessage>
-          )}
-          <FormLabel color={"white"} >Username</FormLabel>
-          <Textarea resize={"none"} placeholder='Enter your new Name' w={"100%"} bg={"transparent"} border={"1px"} borderColor={"white"} p={3} borderRadius={"xl"} color={"white"} _vertical={"10px"} value={" Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ducimus quidem quos culpa saepe nam voluptatum maiores sequi quia explicabo? Quis rem eius cum facere repellat ullam quidem sed necessitatibus?"} onChange={handleInputChange} />
-          {!isError ? (
-            <FormHelperText color={"white"}>
-            </FormHelperText>
-          ) : (
-            <FormErrorMessage color={"red"}>Name is required.</FormErrorMessage>
-          )}
-        </FormControl>
-      )
+interface InitialFocusModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  initialRef: RefObject<HTMLInputElement>;
+  finalRef: RefObject<HTMLInputElement>;
 }
-function ButtonProfile () {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const initialRef = React.useRef(null)
-    const finalRef = React.useRef(null)
-    return (
-      <>
-        <Button 
-                onClick={onOpen} 
-                border={"1px"}
-                        borderColor={"white"}
-                        color={"white"}
-                        borderRadius={"3xl"}
-                        fontWeight={"semibold"}
-                        px={3}
-                        py={2}
-                        mx={""}>Edit Profile</Button>
-        
-        <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
+function profileModal ({isOpen,onClose, initialRef, finalRef}: InitialFocusModalProps) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { register, handleSubmit, errors, onSubmit } = useUser();
+  return (
+    <>
+      <Modal
         onClose={onClose}
-      >
-          <ModalOverlay bg={"blackAlpha.500"} />
-          <ModalContent mx={"auto"} display={"flex"} w={"600px"} flexDirection={"column"} justifyContent={"center"}>
-            <Box display={"flex"} flexDirection={"row"} justifyContent={"space-between"} mx={"auto"} w={"100%"} borderBottom={"1px"} borderColor={"grey"} mb={2}>
+        isOpen={isOpen}
+        finalFocusRef={finalRef}
+        initialFocusRef={initialRef}>
+          <ModalOverlay
+            backdropFilter='blur(20px)'
+            backgroundColor="rgba(128, 128, 128,0.1)"
+          >
+            <ModalContent
+              minW="45vw" overflow={"auto"} background={"#1d1d1d"} borderRadius={"15px"}
+            >
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalBody pb={6}>
+                  <Box mb={"10px"} mt={'5px'}  width="100%" display="flex">
+                  <Text fontWeight={'bold'} color={'home.text'}>Edit Profile</Text>
 
-            <ModalHeader color={"white"} fontWeight={"semibold"} flex={1} fontSize={"2xl"} >Edit Profile</ModalHeader>
-            <ModalCloseButton color={"white"}  />
-            </Box>
-            <ModalBody bg={"#262626"} w={"100%"} h={"606px"}  mx={"auto"} display={"flex"} flexDirection={"column"} justifyContent={"start"} gap={"5rem"} px={5}>
-                <Box>
+                    <ModalCloseButton
+                      width="20px"
+                      height="20px"
+                      m={"5px 2px"}
+                      rounded="full"
+                      fontSize={"7px"}
+                      color="home.link"
+                      fontWeight={"bold"}
+                      border="1.5px solid #909090" />
+                  </Box>
+                  <Box>
+                    <Image  
+                      width={'100%'}
+                      height={'125px'}
+                      display={'block'}
+                      borderRadius='10px'
+                      src='https://wallpapercave.com/wp/wp4566576.jpg' />
 
-             
-            <Box w={"auto"}  mt={"20px"}
-                bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
-                h={"100px"}
-                borderRadius={"10px"}>
-            </Box>
-            <Box position={"absolute"} top={"270px"} left={"20px"} w={"100%"}>
-                <Box display={"flex"} justifyContent={"space-between"} w={"full"} flexDirection={"row"} alignItems={"end"} px={5}>
-                    <Image src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    boxSize={"80px"} objectFit={"cover"} borderRadius={"50px"} border={"2px"} borderColor={"#262626"} display={"inline"} />
-                    </Box>
-                </Box>
-                </Box>
-                    <Box>
-                        <ErrorMessage />
-                    </Box>
+                      <Box
+                      mt={'-35px'}
+                      display={'flex'}
+                      alignItems={'center'}>
+                        <Avatar
+                          ms={'20px'}
+                          boxSize='80px'
+                          display={'block'}
+                          borderRadius='500px'
+                          border={'3px solid black'}
+                          src='https://bit.ly/dan-abramov' />
+                        
+                        <FormControl>
+                          <FormLabel
+                            display={'flex'}
+                            fontSize={'30px'}
+                            cursor={'pointer'}
+                            color={'grey'}
 
-            </ModalBody>
-  
-            <ModalFooter>
-              <Button color={"white"} bg={"#04A51E"}  py={1} px={2} mt={3} borderRadius={"3xl"} onClick={onClose}>
-                Close
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </>
-    )
-    
+                          ><Box
+                          mt={'8px'}
+                          ms={'-59px'}
+                          bg={'#323232'}
+                          color={'white'}
+                          padding={'7px'}
+                          fontSize={'20px'}
+                          borderRadius={'full'}>
+
+                            </Box></FormLabel>
+                            <Input type='file' hidden/>
+                        </FormControl>
+                      </Box>
+                      <Box>
+                        <FormControl color={"white"}>
+                          <FormLabel
+                          mt={'15px'}
+                          p={'10px'}
+                          fontSize={'16px'}
+                          color={'home.modal'}
+                          borderRadius={'7px'}
+                          border={'1px solid #545454'} 
+                          >Name
+                          <Input
+                          type="text"
+                          mt={'-10px'}
+                          ms={'-14px'}
+                          border={'none'}
+                          >
+                          </Input>
+                          </FormLabel>
+                        </FormControl>
+                      </Box>
+                  </Box>
+                </ModalBody>
+              </form>
+
+            </ModalContent>
+          </ModalOverlay>
+      </Modal>
+    </>
+  )
 }
-export default function ProfileAtas () {
-    const Navigate = useNavigate()
+
+// function profileatas
+
+
+
+export default function ProfileAtas () {  
+
+const {user} = useUser()
+  
+
     return (
         <Box bg={"#262626"}
         width={"100%"} position={"relative"}>
@@ -118,13 +136,12 @@ export default function ProfileAtas () {
                 <Box display={"flex"} justifyContent={"space-between"} w={"full"} flexDirection={"row"} alignItems={"end"} px={5}>
                     <Image src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                     boxSize={"80px"} objectFit={"cover"} borderRadius={"50px"} border={"2px"} borderColor={"#262626"} display={"inline"} />
-                    <ButtonProfile />
                     </Box>
                 </Box>
                 <Box mt={"4rem"}>
-                    <Text as={"p"} fontWeight={"semibold"} color={"white"} fontSize={"2xl"} ps={5}>Stella Audhina</Text>
-                    <Text as={"p"} ps={5} color={"grey"}>@Audhinafh</Text>
-                    <Text as={"p"} ps={5} color={"white"}>picked over by the worms, and weird fishes</Text>
+                    <Text as={"p"} fontWeight={"semibold"} color={"white"} fontSize={"2xl"} ps={5}>{user?.fullName}</Text>
+                    <Text as={"p"} ps={5} color={"grey"}>@{user?.username}</Text>
+                    <Text as={"p"} ps={5} color={"white"}></Text>
                     <Box display={"flex"} flexDirection={"row"} gap={"1rem"} mt={"1rem"} ps={5} pb={10}>
 
                         <Text as={"p"} color={"grey"}  ><Text as={"span"} fontWeight={"semibold"} color={"white"}>291</Text> Following</Text>

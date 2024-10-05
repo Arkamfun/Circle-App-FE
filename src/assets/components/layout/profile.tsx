@@ -3,7 +3,6 @@ import ProfileAtas from './profileatas'
 
 
 export function Sugesstion() {
-
     return (
         <Box w={"100%"} className='kanan' display={"flex"} flexDirection={"column"}  py={"2rem"} gap={"1rem"}
         border={"1px"} borderColor={"grey"} borderRadius={"10px"}>
@@ -17,7 +16,7 @@ export function Sugesstion() {
                 
                 />
                 <Box display={"flex"} flexDirection={"column"}>
-                    <Text as={"p"} color={"white"} fontWeight={"semibold"}>Stella Audhina</Text>
+                    <Text as={"p"} color={"white"} fontWeight={"semibold"}></Text>
                     <Text as={"p"} color={"grey"}>@Audhinafh</Text>
                 </Box>
                 </Box>
