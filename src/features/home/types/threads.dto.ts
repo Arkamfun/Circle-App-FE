@@ -1,6 +1,6 @@
-import { ThreadEntity } from "../../../entities/thread"
+import { ThreadEntity, ThreadEntityCreate } from "../../../entities/thread"
 
-export type threadDTO = ThreadEntity
-export type CreateThreadsDTO = Pick<ThreadEntity, "title" | "content" | "image" > & {
-    authorId:number
+export type threadDTO = ThreadEntityCreate
+export type CreateThreadsDTO = Pick<ThreadEntityCreate, "title" | "content" | "image"  > & {
+    authorId:number,
 }

@@ -6,6 +6,7 @@ import { ThreadEntity } from "../entities/thread";
 import { apiV1 } from "../libs/api";
 import { createThreadSchema } from "../features/home/schemas/threadsSchema";
 import { CreateThreadsDTO } from "../features/home/types/threads.dto"; 
+import Cookies from "js-cookie";
 
 export const useHomePage = () =>{
     const {data : threads, refetch} = useQuery<ThreadEntity[]>({
@@ -21,10 +22,11 @@ export const useHomePage = () =>{
     async function getThreads() {
         const response = await apiV1.get('/thread', {
             headers: {
-                Authorization: `Bearer ${localStorage.token}`,
+                Authorization: `Bearer ${Cookies.get('token')}`,
             },
 
         })
+        console.log('ini respon',response.data)
         return response.data
     }
 
@@ -37,7 +39,7 @@ export const useHomePage = () =>{
             const formData = new FormData();
             formData.append("title", newThread.title)
             formData.append("content", newThread.content);
-            formData.append("image", newThread.image[0])
+            formData.append("image", newThread.image?[0])
             return apiV1.post('/thread',formData)
         }
     })

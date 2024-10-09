@@ -3,13 +3,17 @@ import {
     Button,
     Container,
     Input,
-    Text
+    Text,
+    FormControl,
+    FormLabel
 } from '@chakra-ui/react'
 import ThreadCard from '../../features/home/components/CardList'
 import { useHomePage } from '../../hooks/use-home-page'
 import Menu from '../components/layout/menu'
 import Profile from '../components/layout/profile'
 import { usePostThread } from '../../features/home/hooks/post-thread-hook'
+import { FaImage } from "react-icons/fa";
+
 function HomePage() {
     const { threads } = useHomePage();
     
@@ -26,9 +30,19 @@ function HomePage() {
                             <Text fontWeight={"bold"} fontSize={"30px"} color={"white"}>
                                 Home
                             </Text>
-                            <form onSubmit={handleSubmit(onSubmit)}>
+                            
+                            <form onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'>
                             <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} justifyItems={"center"} mx={"auto"} gap={"10px"}>
+                                
                                 <Input display={"block"} placeholder='Title'{...register("title")} />
+                                <FormControl>
+                                    <FormLabel display={"block"} >
+                                    <FaImage color='white'/>
+
+                                    </FormLabel>
+                                <Input  display={"block"} {...register("image")} type='file' name='image' hidden>
+                                </Input> 
+                                </FormControl> 
                                 <Input display={"block"} placeholder='Content'{...register("content")} />
                                 {/* <Input type="file" name='image'  {...register("image")} /> */}
                                 <Button type="submit" backgroundColor={"white"}>
